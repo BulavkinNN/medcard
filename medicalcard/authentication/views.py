@@ -1,19 +1,18 @@
-from django.http import HttpResponse
 
+from django.shortcuts import render
+from authentication.models import Role
 
 def index(request):
-    response = '''
-    <a href="\\admin">Admin</a>
-    <a href="\\registration">Registration</a>
-    <a href="\\medcard">Откроется после проверки пароля</a>
+    list_role= Role.objects.all()
 
-    <p>Hello. In this page authentication</p>
-    <p> Нужен фон с врачами, и табличка логин, пароль.
-        Проверка пароля, в случае не пустого заполнения, </br>и
-        отсутствия перебросить на регистрацию.
-        Ниже описание:
-        Medcard - элетронная медицинская карта пациента,</br>
-        позволяет просматривать медицинскую историю и тд тп.
-    </p>
+    context = '''
+    <p>
+    Выбор роли пациент,врач и возможность добавление</br>
+    других профилей в админ панели.</p>
     '''
-    return HttpResponse(response)
+
+    return render(request,
+                    'authentication/index.html',
+                    {"context":context,
+                     "list_role":list_role,
+                    })

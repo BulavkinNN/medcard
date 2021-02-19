@@ -1,3 +1,4 @@
+import os
 """
 Django settings for medicalcard project.
 
@@ -25,12 +26,14 @@ SECRET_KEY = 'd@8^twudk*5!vfa*xkh&u@@!adaa2v5va*^sw#8g$20fvj!f8x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['medicalcard.pythonanywhere.com']
+ALLOWED_HOSTS = ['bulnik.pythonanywhere.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'authentication.apps.AuthenticationConfig',
+    'medcard.apps.MedcardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,7 +57,8 @@ ROOT_URLCONF = 'medicalcard.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'authentication/templates'),
+                os.path.join(BASE_DIR, 'registration/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,10 +120,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-STATIC_ROOT = '/home/medicalcard/medicalcard/static'
+STATIC_ROOT = '/home/bulnik/medicalcard/medicalcard/static'
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = '/home/medicalcard/medicalcard/media'
+MEDIA_ROOT = '/home/bulnik/medicalcard/medicalcard/media'
 MEDIA_URL = '/media/'
 
-
+#new setttings
+LOGIN_URL = '/' #Not test
+LOGIN_REDIRECT_URL = '/'

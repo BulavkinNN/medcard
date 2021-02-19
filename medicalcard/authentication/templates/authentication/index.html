@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Authentication </title>
+</head>
+<body>
+    <a href="admin">Admin</a>
+    <a href="registration">Registration</a>
+    <a href="medcard">Откроется после проверки пароля</a>
+
+    <p>Hello. In this page authentication</p>
+    <p> Нужен фон с врачами, и табличка логин, пароль.
+        Проверка пароля, в случае не пустого заполнения, </br>и
+        отсутствия перебросить на регистрацию.
+        Ниже описание:
+        Medcard - элетронная медицинская карта пациента,</br>
+        позволяет просматривать медицинскую историю и тд тп.
+    </p>
+    <div>
+    <form action="medcard" id="medcard_authentication">
+    <label for="login">Login:</label>
+    <input type="text" id="login" name="login"></br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"></br>
+    <input type="submit">
+    </form>
+    <br>
+    <label for="role">Choose role:</label>
+    <select id="role" name="role" form="medcard_authentication">
+    {% for item in list_role %}
+    <option value="{{item.role}}">{{item.description}}</option>
+    {% endfor %}
+    </select>
+    {% autoescape off %}
+    </div>
+    {{ context }}
+    <a href="">Click here to login again.</a>
+{% endautoescape %}
+
+
+
+</body>
+</html>
