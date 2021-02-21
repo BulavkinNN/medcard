@@ -23,4 +23,4 @@ def create(request):
     else:
         form = NewPacient()
 
-    return render(request, 'registration/index.html', {'form': form})
+    return render(request, 'registration/createPacient.html', {'form': form})

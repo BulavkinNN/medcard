@@ -1,18 +1,6 @@
- <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title>Регистрация нового пациента</title>
-</head>
+{% extends 'base.html' %}
+{% block title %}Регистрация нового пользователя MedCard{% endblock title %}
+{% block content %}
+<h2>Доступные операции</h2>
 <a href="create/">Добавить нового пациента</a>
-<p> </p>
-
-
-<form action="create/" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
-
-</body>
-</html>
+{% endblock content %}
