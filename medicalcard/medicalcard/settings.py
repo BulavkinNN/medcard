@@ -26,7 +26,7 @@ SECRET_KEY = 'd@8^twudk*5!vfa*xkh&u@@!adaa2v5va*^sw#8g$20fvj!f8x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bulnik.pythonanywhere.com']
+ALLOWED_HOSTS = ['bulnik.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition
