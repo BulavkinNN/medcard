@@ -1,6 +1,5 @@
-
 from django.shortcuts import render
-from authentication.models import Role
+from .models import Role
 
 def index(request):
     list_role= Role.objects.all()
@@ -16,3 +15,6 @@ def index(request):
                     {"context":context,
                      "list_role":list_role,
                     })
+
+
+

@@ -71,7 +71,7 @@ class MedProc(models.Model):
         abstract = True
 
 class Examination(MedProc):
-    time=models.TimeField(auto_now=True)
+    time = models.TimeField(auto_now=True)
     visit_purpose = models.CharField(max_length=256, null=True)
     doctor = models.ForeignKey(Doctor, on_delete = models.DO_NOTHING, null=True)
     patient_status  = models.CharField(max_length=256, null=True)
@@ -90,7 +90,7 @@ class MedicalPurpose(MedProc):
 
 class Operation(MedProc):
     name = models.CharField(max_length=256, null=True)
-    doctor = models.ForeignKey(Doctor, on_delete = models.DO_NOTHING, null=True)
+    doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
     info = models.CharField(max_length=256,  null=True)
 
 

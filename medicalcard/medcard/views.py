@@ -11,3 +11,20 @@ def index(request):
     '''
 
     return HttpResponse(response)
+
+def pocient(request):
+    response = '''
+  I am pacient!
+    '''
+
+    return HttpResponse(response)
+
+
+def doctor(request):
+    response = '''
+  I am doctor!
+    '''
+
+    return HttpResponse(response)
+
+
