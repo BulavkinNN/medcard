@@ -9,10 +9,15 @@ class User(models.Model):
     mail = models.EmailField(max_length=256)
     sex = models.CharField(max_length=10)
     date_of_birth = models.DateField()
-    password = models.CharField(max_length=100)
+    city = models.CharField(max_length=20, null=True)
 
     class Meta:
         abstract = True
+
+
+class UserAccount(models.Model):
+    mob_tel = models.CharField(max_length=20, unique=True)
+    password = models.CharField(max_length=100)
 
 
 class Clinical(models.Model):
@@ -23,13 +28,13 @@ class Clinical(models.Model):
 
 
 class Doctor(User):
-    #city = models.CharField(max_length=20, default="No city")
-    clinical = models.ForeignKey(Clinical, on_delete = models.DO_NOTHING, null=True)
-    #models.DO_NOTHING not logic, but SET_NULL, except error
+    user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE, null=True)
+    clinical = models.ForeignKey(Clinical, on_delete=models.DO_NOTHING, null=True)
+
     def __str__(self):
         return f"Dr. {self.surname} {self.name}"
 
-class MedicalProcedures(models.Model):
+class MedicalProcedure(models.Model):
     name = models.CharField(max_length=20)
 
     in_clinik = models.ForeignKey(Clinical, on_delete = models.DO_NOTHING,default=1)
@@ -39,19 +44,17 @@ class MedicalProcedures(models.Model):
 
 class MedicalHistory(models.Model):
     date = models.DateField()
-    medical_procedures = models.ForeignKey(MedicalProcedures, on_delete = models.DO_NOTHING, null=True)
-
+    medical_procedures = models.ForeignKey(MedicalProcedure, on_delete = models.DO_NOTHING, null=True)
 
     def __str__(self):
         return f" {self.date}{self.medical_procedures} "
 
 
 class Patient(User):
-    city = models.CharField(max_length=20, null=True)
+    user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE, null=True)
     job = models.CharField(max_length=20)
     medical_insurance = models.BooleanField()
     my_doctor = models.ForeignKey(Doctor, on_delete = models.DO_NOTHING, null=True)
-    #my_med_history =models.ForeignKey(MedicalHistory, on_delete = models.DO_NOTHING,default=1)
 
     def __str__(self):
         return f"{self.surname} {self.name}"
