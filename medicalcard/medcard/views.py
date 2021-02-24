@@ -7,12 +7,14 @@ def index(request):
     Тут вся информация о этом пациентеб</br>
 
 
-    <a href="\\statis">Статистика</a>
+    <a href="patient\\">Пациент</a>
+    <a href="doctor\\">Врач</a>
+  
     '''
 
     return HttpResponse(response)
 
-def pocient(request):
+def patient(request):
     response = '''
   I am pacient!
     '''
