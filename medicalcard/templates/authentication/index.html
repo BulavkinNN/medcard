@@ -14,24 +14,21 @@
         позволяет просматривать медицинскую историю и тд тп.
     </p>
 <div>
-    <form action="medcard" id="medcard_authentication" method="post">
-    <label for="login">Login:</label>
-    <input type="text" id="login" name="login"></br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"></br>
-    <input type="submit">
+    <form action="" method="post" id="authentication">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
     </form>
-    <br>
+
     <label for="role">Choose role:</label>
-    <select id="role" name="role" form="medcard_authentication">
+    <select id="role" name="role" form="authentication">
     {% for item in list_role %}
     <option value="{{item.role}}">{{item.description}}</option>
     {% endfor %}
     </select>
+</div>
     {% autoescape off %}
-    </div>
-    {{ context }}
-    <a href="">Click here to login again.</a>
-{% endautoescape %}
+       {{ context }}
+    {% endautoescape %}
 
 {% endblock content %}
