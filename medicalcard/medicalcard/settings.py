@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'send_mail.apps.SendMailConfig'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,10 @@ MEDIA_URL = '/media/'
 #new setttings
 LOGIN_URL = '/' #Not test
 LOGIN_REDIRECT_URL = '/'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'Your gmail email'
+EMAIL_HOST_PASSWORD = 'Your gmail password'
+DEFAULT_FROM_EMAIL = 'Your name'
+DEFAULT_TO_EMAIL = 'Your email'
