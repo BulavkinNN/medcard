@@ -3,7 +3,7 @@ from .models import Role
 from django.http import HttpResponseRedirect
 from .forms import Authentication
 from medcard.models import UserAccount
-
+from django.urls import reverse
 
 def index(request):
 
@@ -24,9 +24,9 @@ def index(request):
             #role = form.cleaned_data['role'] !!!!!!!!!!!! Запрос
             role = 'pacient'
             if role == 'pacient':
-                return HttpResponseRedirect("../medcard/patient")
+                return HttpResponseRedirect(reverse('patient'))
             if role == 'doctor':
-                return HttpResponseRedirect("../medcard/doctor")
+                return HttpResponseRedirect(reverse('doctor'))
     else:
         form = Authentication()
         context = '''

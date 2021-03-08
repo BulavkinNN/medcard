@@ -1,22 +1,24 @@
-import environ
+
 import os
 from pathlib import Path
 
-root = environ.Path(__file__) - 3  # get root of the project
-env = environ.Env()
-environ.Env.read_env()
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+
+
+SECRET_KEY = 'd@8^twudk*5!vfa*xkh&u@@!adaa2v5va*^sw#8g$20fvj!f8x'
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd@8^twudk*5!vfa*xkh&u@@!adaa2v5va*^sw#8g$20fvj!f8x'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env('DEBUG')
+DEBUG = True #env('DEBUG')
 
 ALLOWED_HOSTS = ['bulnik.pythonanywhere.com', '127.0.0.1']
 
@@ -116,10 +118,14 @@ MEDIA_URL = '/media/'
 # new setttings
 LOGIN_URL = '/'  # Not test
 LOGIN_REDIRECT_URL = '/'
+
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'Your gmail email'
-EMAIL_HOST_PASSWORD = 'Your gmail password'
-DEFAULT_FROM_EMAIL = 'Your name'
-DEFAULT_TO_EMAIL = 'Your email'
+
+EMAIL_HOST_USER = 'hermes.postman.2021'
+EMAIL_HOST_PASSWORD = 'uthvtcgjxnf'
+DEFAULT_FROM_EMAIL = 'Hermes Postman 2021'
+DEFAULT_TO_EMAIL = 'hermes.postman.2021@gmail.com'
+
+AUTH_USER_MODEL = "medcard.UserAccount"

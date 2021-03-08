@@ -4,9 +4,10 @@ from django.http import HttpResponseRedirect
 from medcard.models import Patient
 from .forms import NewPacient
 
-def index(request):
 
+def index(request):
     return render(request, "registration/index.html")
+
 
 def create(request):
     if request.method == "POST":
