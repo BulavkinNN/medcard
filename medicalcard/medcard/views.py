@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-
+from medcard.models import UserAccount
 
 def index(request):
     response = '''
@@ -18,6 +18,7 @@ def index(request):
     return HttpResponse(response)
 
 def patient(request):
+
     response = '''
   I am pacient!
     '''

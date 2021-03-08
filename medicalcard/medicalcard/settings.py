@@ -129,3 +129,10 @@ DEFAULT_FROM_EMAIL = 'Hermes Postman 2021'
 DEFAULT_TO_EMAIL = 'hermes.postman.2021@gmail.com'
 
 AUTH_USER_MODEL = "medcard.UserAccount"
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]

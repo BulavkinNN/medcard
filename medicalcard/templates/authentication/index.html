@@ -2,9 +2,9 @@
 {% block title %}Стартовая страница MedCard{% endblock title %}
 {% block content %}
 <h2>Доступные функции</h2>
-<a href="admin">Admin</a>
-    <a href=" url 'registration.index'">Registration</a>
-    <a href="medcard">Откроется после проверки пароля</a>
+<a href="admin/">Admin</a>
+    <a href="{% url 'registration.index'%}">Registration</a>
+    <a href="{%url 'medcart.index'%}">Откроется после проверки пароля</a>
 <p>Hello. In this page authentication</p>
     <p> Нужен фон с врачами, и табличка логин, пароль.
         Проверка пароля, в случае не пустого заполнения, </br>и
