@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import Role
 from django.http import HttpResponseRedirect
-from .forms import Authentication
+from .forms import AuthenticationForm
 from medcard.models import UserAccount
 from django.urls import reverse
 
@@ -13,7 +13,8 @@ def index(request):
                        <p>
                       Я уже получил POST запросы</p>
                        '''
-        form = Authentication(request.POST)
+        form = AuthenticationForm(request.POST)
+
         if form.is_valid():
             context = '''
                                    <p>
@@ -21,14 +22,12 @@ def index(request):
                                    '''
             mob_tel = form.cleaned_data['mob_tel']
             password = form.cleaned_data['password']
-            #role = form.cleaned_data['role'] !!!!!!!!!!!! Запрос
-            role = 'pacient'
-            if role == 'pacient':
-                return HttpResponseRedirect(reverse('patient'))
-            if role == 'doctor':
-                return HttpResponseRedirect(reverse('doctor'))
+            role = request.POST['role']
+            # []with role need get from Role model, not manual!!
+            if role in ['pacient','doctor']:
+                return HttpResponseRedirect(reverse(role))
     else:
-        form = Authentication()
+        form = AuthenticationForm()
         context = '''
                    <p>
                    Выбор роли пациент,врач и возможность добавление</br>
