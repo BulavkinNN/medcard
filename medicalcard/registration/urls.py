@@ -2,7 +2,8 @@ from django.urls import path
 
 from . import views
 
+app_name = 'registration'
 urlpatterns = [
-    path('', views.index, name='registration.index'),
-    path('create/', views.create, name="registration.create"),
+    path('', views.index, name='index'),
+    path('create/', views.create, name='create'),
 ]

@@ -9,6 +9,7 @@ class UserAccount(AbstractUser):
     sex = models.CharField(choices=GENDER_CHOICES, max_length=6)
     date_of_birth = models.DateField(null=True)
     city = models.CharField(max_length=20, null=True)
+    USERNAME_FIELD = 'mob_tel'
 
     def get_id_patient(self):
         item = UserAccount.objects.get(pk=self.pk)
@@ -17,6 +18,7 @@ class UserAccount(AbstractUser):
     def get_id_doctor(self):
         item = UserAccount.objects.get(pk=self.pk)
         return str(item.doctor.pk)
+
 
 class Clinical(models.Model):
     name = models.CharField(max_length=20)

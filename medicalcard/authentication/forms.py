@@ -1,19 +1,10 @@
-from django.forms import ModelForm
-from medcard.models import UserAccount
-from .models import Role
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import get_user_model
+
+UserModel = get_user_model()
 
 
-class AuthenticationForm(ModelForm):
-    class Meta:
-        model = UserAccount
-        fields = ['mob_tel', 'password']
+class AuthenticationCustomForm(AuthenticationForm):
 
-
-class RoleForm(ModelForm):
-    """
-    Don`t use
-    """
-
-    class Meta:
-        model = Role
-        fields = ['role']
+    def __init__(self, request=None, *args, **kwargs):
+        super().__init__(request=None, *args, **kwargs)

@@ -10,11 +10,13 @@ from .models import UserAccount
 
 @admin.register(UserAccount)
 class UserAccountAdmin(admin.ModelAdmin):
+
     list_display = ['username','email','get_id_patient','get_id_doctor','is_active']
     fields = ['username','password', 'first_name', 'last_name', 'patronymick',
               'date_of_birth','sex', 'email','mob_tel','city','date_joined',
               'last_login','is_superuser', 'is_staff',  'is_active',
-               'groups', 'user_permissions']
+                ]
+
 
 
 admin.site.register(Patient)

@@ -18,9 +18,10 @@ from django.urls import path, include
 from send_mail import views
 
 urlpatterns = [
-    path('', include('authentication.urls')),
+
     path('registration/', include('registration.urls')),
-    path('medcard/', include('medcard.urls')),
     path('admin/', admin.site.urls),
     path('mail/', views.send_mail_to),
+    path('authentication/',include('authentication.urls')),
+    path('', include('medcard.urls'))
 ]

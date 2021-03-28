@@ -3,8 +3,10 @@
 {% block content %}
 <h2>Доступные функции</h2>
 <a href="admin/">Admin</a>
-    <a href="{% url 'registration.index'%}">Registration</a>
-    <a href="{%url 'medcart.index'%}">Откроется после проверки пароля</a>
+    <a href="{% url 'registration:index'%}">Registration</a>
+    <a href="{% url 'authentication:login'%}">Log in</a>
+    <a href="{% url 'authentication:logout'%}">Log out</a>
+    <a href="{%url 'medcard:medcard'%}">Откроется после проверки пароля</a>
 <p>Hello. In this page authentication</p>
     <p> Нужен фон с врачами, и табличка логин, пароль.
         Проверка пароля, в случае не пустого заполнения, </br>и
@@ -13,20 +15,11 @@
         Medcard - элетронная медицинская карта пациента,</br>
         позволяет просматривать медицинскую историю и тд тп.
     </p>
-<div>
-    <form action="" method="post" id="authentication">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-    </form>
-
-    <label for="role">Choose role:</label>
-    <select id="role" name="role" form="authentication">
-    {% for item in list_role %}
-    <option value="{{item.role}}">{{item.description}}</option>
-    {% endfor %}
-    </select>
-</div>
+    {%if flash.error%}
+        {%for message in flash.error%}
+            <p>{{message}}</p>
+        {%endfor%}
+    {% endif%}
     {% autoescape off %}
        {{ context }}
     {% endautoescape %}
