@@ -23,6 +23,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('mail/', views.send_mail_to),
     path('authentication/',include('authentication.urls')),
-    path('my_pacients/', include('pacients.urls')),
+    path('my-pacients/', include('pacients.urls')),
     path('', include('medcard.urls'))
 ]

@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
+{% load custom_tags %}
 {% block title %}Мои пациенты{% endblock title %}
 {% block content %}
-    {% if user %}
-        {% for data in user %}
-            <p>First name: {{data.first_name}}</p>
-            <p>Last name: {{data.last_name}}</p>
-            <p>E-mail: {{data.email}}</p>
-            <p>Tel: {{data.mob_tel}}</p>
-            <p>Date of birth: {{data.date_of_birth}}</p>
-            <p>City: {{data.city}}</p>
-            <p>Gender: {{data.sex}}</p>
+    {% if patients %}
+        {% for patient in patients %}
+            <p>First name: {{patients|get_item:patient|get_item:'first_name'}}</p>
+            <p>Last name: {{patients|get_item:patient|get_item:'last_name'}}</p>
+            <p>E-mail: {{patients|get_item:patient|get_item:'email'}}</p>
+            <p>Tel: {{patients|get_item:patient|get_item:'mob_tel'}}</p>
+            <p>Date of birth: {{patients|get_item:patient|get_item:'date_of_birth'}}</p>
+            <p>City: {{patients|get_item:patient|get_item:'city'}}</p>
+            <p>Gender: {{patients|get_item:patient|get_item:'sex'}}</p>
         {% endfor %}
     {% endif %}
 {% endblock content %}
