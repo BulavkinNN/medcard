@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'send_mail.apps.SendMailConfig'
+    'send_mail.apps.SendMailConfig',
+    'pacients.apps.PacientsConfig'
 ]
 
 MIDDLEWARE = [

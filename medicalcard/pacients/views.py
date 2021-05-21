@@ -25,7 +25,6 @@ def my_pacients(request):
 
             patients[patient.user_account_id] = patient_info
 
-        print(patients)
         return render(request, "pacients/my_pacients.html", {'patients': patients})
     else:
         return redirect('/')
