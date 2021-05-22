@@ -1,7 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from django.utils import timezone as tz
+
 from authentication.permissions import is_patient, is_doctor
 from django.shortcuts import redirect, render
+
+from medcard.models import Patient
 
 
 def index(request, message=None):
@@ -23,8 +27,22 @@ def medcard(request):
 @login_required
 def patient(request):
     response = '''
-  I am pacient!
+  I am pacient! But there is error
     '''
+    context = {}
+    if is_patient(request):
+        patient_id = request.user.patient.id
+
+        try:
+            patient = Patient.objects.get(id=patient_id)
+        except Patient.DoesNotExist:
+            print("Error")
+        else:
+            today = tz.localtime(tz.now()).date()
+            context['today'] = today
+            context['patient'] = patient
+            return render(request, 'medcard/patient_main.html', context=context)
+
     return HttpResponse(response)
 
 

@@ -1,12 +1,7 @@
-import hashlib
-
-from django.contrib.auth.password_validation import validate_password
-from django.core.exceptions import ValidationError
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-
 from medcard.models import Patient, Doctor
-from .forms import NewUser, UserAccount
+from .forms import NewUser
 
 
 def index(request):
@@ -31,4 +26,4 @@ def create(request):
     else:
         form = NewUser()
 
-    return render(request, 'registration/createPacient.html', {'form': form})
+    return render(request, 'registration/createPatient.html', {'form': form})

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Стартовая страница пациента MedCard{% endblock title %}
+{% block content %}
+ {{ today }}<br>
+ Patient: {{ patient.user_account.first_name}} {{ patient.user_account.patronymick}} {{ patient.user_account.last_name}}<br>
+ Doctor: {% if patient.my_doctor %} {{ patient.my_doctor }} {% else %} no family doctor {% endif %}<br>
+    Ближайщие мероприятия
+    <br>
+    Текущий статус
+    <br>
+{% endblock content %}

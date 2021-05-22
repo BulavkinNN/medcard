@@ -14,7 +14,6 @@ class NewUser(forms.ModelForm):
                (DOCTOR, 'I am doctor'))
 
     user_role = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
-    #new_patient = forms.BooleanField(label='I am patient', required=False, initial=False)
 
     class Meta:
         model = UserAccount
@@ -26,24 +25,8 @@ class NewUser(forms.ModelForm):
                    "groups",
                    "user_permissions")
 
-        # widgets = {
-        #     # telling Django your password field in the mode is a password input on the template
-        #     'password': forms.PasswordInput(),
-        #     'password2':forms.PasswordInput()
-        # }
         def clean_password2(self):
             cd = self.cleaned_data
             if cd['password'] != cd['password2']:
                 raise forms.ValidationError("Password don`t match")
             return cd['password2']
-
-    # name = forms.CharField(max_length=20)
-    # surname = forms.CharField(max_length=20)
-    # patronymick = forms.CharField(max_length=20)
-    # mail = forms.EmailField(max_length=256)
-    # sex = forms.CharField(max_length=10)
-    # date_of_birth = forms.DateField()
-    # password = forms.CharField(max_length=100)
-    # city = forms.CharField(max_length=20)
-    # job = forms.CharField(max_length=20)
-    # medical_insurance = forms.BooleanField()

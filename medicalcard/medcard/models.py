@@ -59,7 +59,13 @@ class Patient(models.Model):
     my_doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
-        return f"{self.id}"
+        try:
+            first_name = self.user_account.first_name
+            last_name = self.user_account.last_name
+        except AttributeError:
+            return self.id
+        else:
+            return f"{first_name} {last_name}"
 
 
 class MedProc(models.Model):
