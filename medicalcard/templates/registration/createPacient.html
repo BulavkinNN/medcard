@@ -2,7 +2,7 @@
 {% block title %}Регистрация нового пациента MedCard{% endblock title %}
 {% block content %}
 <h2>Заполните форму нового пациета</h2>
-<form action="create/" method="post">
+<form action="" method="post">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit">
