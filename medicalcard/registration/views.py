@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
 from medcard.models import Patient, Doctor
-from .forms import NewPatient, UserAccount
+from .forms import NewUser, UserAccount
 
 
 def index(request):
@@ -15,7 +15,7 @@ def index(request):
 
 def create(request):
     if request.method == "POST":
-        form = NewPatient(request.POST)
+        form = NewUser(request.POST)
         if form.is_valid():
             new_user = form.save(commit=False)  # Do not save to table yet
             new_user.set_password(form.cleaned_data['password'])
@@ -29,6 +29,6 @@ def create(request):
         return HttpResponseRedirect("/")
 
     else:
-        form = NewPatient()
+        form = NewUser()
 
     return render(request, 'registration/createPacient.html', {'form': form})
