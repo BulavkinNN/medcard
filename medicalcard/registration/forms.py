@@ -8,7 +8,11 @@ class NewPatient(forms.ModelForm):
     password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
     job = forms.CharField(label='Job', max_length=30)
     medical_insurance = forms.BooleanField(label='Medical insurance', required=False, initial=False)
-    new_patient = forms.BooleanField(label='I am patient', required=False, initial=False)
+    CHOICES = [('patient', 'I am patient'),
+               ('doctor', 'I am doctor')]
+
+    user_role = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect)
+    #new_patient = forms.BooleanField(label='I am patient', required=False, initial=False)
 
     class Meta:
         model = UserAccount
