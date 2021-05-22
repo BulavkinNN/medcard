@@ -1,3 +1,20 @@
-a{
+a {
 
+}
+
+.profile-container {
+    width: 990px;
+    margin: auto;
+}
+
+.profile-left {
+    text-align: center;
+}
+
+.profile-left img {
+    margin-bottom: 20px;
+}
+
+.profile-left p {
+    margin-bottom: 5px;
 }
