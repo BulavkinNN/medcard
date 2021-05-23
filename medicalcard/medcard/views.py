@@ -4,9 +4,9 @@ from django.utils import timezone as tz
 
 from authentication.permissions import is_patient, is_doctor
 from django.shortcuts import redirect, render
-from .models import UserAccount
+from .models import UserAccount, MedProc
 
-from medcard.models import Patient
+from medcard.models import Patient, MedicalHistory
 
 
 def index(request, message=None):
@@ -42,6 +42,7 @@ def patient(request):
             today = tz.localtime(tz.now()).date()
             context['today'] = today
             context['patient'] = patient
+
             return render(request, 'medcard/patient_main.html', context=context)
 
     return HttpResponse(response)

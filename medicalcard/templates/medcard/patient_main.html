@@ -5,6 +5,9 @@
  Patient: {{ patient.user_account.first_name}} {{ patient.user_account.patronymick}} {{ patient.user_account.last_name}}<br>
  Doctor: {% if patient.my_doctor %} {{ patient.my_doctor }} {% else %} no family doctor {% endif %}<br>
     Ближайщие мероприятия
+{#    {% for item in medicalhistory %}#}
+{#    {{ item }}#}
+{#    {% endfor %}#}
     <br>
     Текущий статус
     <br>

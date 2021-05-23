@@ -37,7 +37,6 @@ class Doctor(models.Model):
 
 class MedicalProcedure(models.Model):
     name = models.CharField(max_length=20)
-
     in_clinik = models.ForeignKey(Clinical, on_delete=models.DO_NOTHING, default=1)
 
     def __str__(self):
