@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'send_mail.apps.SendMailConfig'
+    'send_mail.apps.SendMailConfig',
+    'pacients.apps.PacientsConfig'
 ]
 
 MIDDLEWARE = [
@@ -60,6 +61,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
+            'libraries': {
+                'custom_tags': 'pacients.template_tags.custom_tags'
+            }
         },
     },
 ]

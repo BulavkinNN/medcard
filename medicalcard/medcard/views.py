@@ -4,6 +4,7 @@ from django.utils import timezone as tz
 
 from authentication.permissions import is_patient, is_doctor
 from django.shortcuts import redirect, render
+from .models import UserAccount
 
 from medcard.models import Patient
 
@@ -48,7 +49,10 @@ def patient(request):
 
 @login_required
 def doctor(request):
-    response = '''
-  I am doctor!
-    '''
-    return HttpResponse(response)
+    user_id = request.user.id
+
+    user_info = UserAccount.objects.filter(id=user_id)
+    user = {}
+    # TODO: Add clinical id to dict
+
+    return render(request, "medcard/doctor.html", {'user_info': user_info})
