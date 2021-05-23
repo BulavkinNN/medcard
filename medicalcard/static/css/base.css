@@ -18,3 +18,25 @@ a {
 .profile-left p {
     margin-bottom: 5px;
 }
+
+.container {
+    width: 100%;
+    max-width: 1024px;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.reg-btn {
+    margin-left: 10px;
+}
+
+footer {
+    background-color: #1f3361;
+    margin-top: 50px;
+}
+
+footer .footer-copyright {
+    color: #fff;
+}
