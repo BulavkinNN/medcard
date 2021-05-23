@@ -67,6 +67,27 @@ class Patient(models.Model):
             return f"{first_name} {last_name}"
 
 
+class Record(models.Model):
+    date = models.DateField()
+    patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
+
+    def __str__(self):
+        return f"{self.date} {self.patient}"
+
+
+class ListManipulation(models.Model):
+    name = models.CharField(max_length=30)
+    component_list = models.JSONField(default=dict)
+
+
+class Manipulation(models.Model):
+    name = models.ForeignKey(ListManipulation, on_delete=models.DO_NOTHING)
+    description = models.JSONField(default=dict)
+    initiator_doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
+    executor_clinical = models.ForeignKey(Clinical, on_delete=models.DO_NOTHING, null=True, blank=True)
+    record = models.ForeignKey(Record, on_delete=models.DO_NOTHING)
+
+
 class MedProc(models.Model):
     date = models.DateField()
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
