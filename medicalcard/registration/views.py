@@ -25,7 +25,6 @@ def create(request):
             return HttpResponseRedirect("/")
         else:
             messages.error(request, "form not valid!")
-
         return render(request, 'registration/createPatient.html', {'form': form})
 
     else:
