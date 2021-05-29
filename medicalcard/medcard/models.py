@@ -23,7 +23,7 @@ class UserAccount(AbstractUser):
 
 class Doctor(models.Model):
     user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE, null=True)
-    description = models.JSONField()
+    description = models.JSONField(default=dict)
 
     def __str__(self):
         return f"Dr. {self.user_account}"
@@ -48,18 +48,18 @@ class Visit(models.Model):
     date_time = models.DateTimeField()
     doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
-    result = models.JSONField()
+    result = models.JSONField(default=dict)
 
 
 class Analysis(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
     date = models.DateField(default=timezone.now)
-    result = models.JSONField()
+    result = models.JSONField(default=dict)
 
 
 class Diagnosis(models.Model):
     name = models.CharField(max_length=50)
-    description = models.JSONField()
+    description = models.JSONField(default=dict)
 
     def __str__(self):
         return self.name
@@ -70,4 +70,4 @@ class Disease(models.Model):
     end_data = models.DateField()
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
     diagnosis = models.ForeignKey(Diagnosis, on_delete=models.DO_NOTHING, null=True)
-    description = models.JSONField()
+    description = models.JSONField(default=dict)
