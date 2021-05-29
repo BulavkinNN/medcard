@@ -22,6 +22,7 @@ def create(request):
             elif form.cleaned_data['user_role'] == 'doctor':
                 new_doctor = Doctor.objects.create(user_account=new_user)
             messages.success(request, "Add new user!")
+
             return HttpResponseRedirect("/")
         else:
             messages.error(request, "form not valid!")

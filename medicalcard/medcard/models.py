@@ -39,7 +39,7 @@ class Patient(models.Model):
             first_name = self.user_account.first_name
             last_name = self.user_account.last_name
         except AttributeError:
-            return self.id
+            return str(self.id)
         else:
             return f"{first_name} {last_name}"
 

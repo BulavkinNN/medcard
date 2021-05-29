@@ -2,9 +2,12 @@
 {% block title %}Регистрация нового пользователя MedCard{% endblock title %}
 {% block content %}
 <h2>Заполните форму нового пользователя</h2>
+{% include "include/messages.html" %}
+
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p}}
     <input type="submit" value="Sign up">
 </form>
+
 {% endblock content %}
