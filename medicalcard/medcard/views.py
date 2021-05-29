@@ -4,9 +4,9 @@ from django.utils import timezone as tz
 
 from authentication.permissions import is_patient, is_doctor
 from django.shortcuts import redirect, render
-from .models import UserAccount, MedProc
+from .models import UserAccount
 
-from medcard.models import Patient, MedicalHistory
+from medcard.models import Patient
 
 
 def index(request, message=None):

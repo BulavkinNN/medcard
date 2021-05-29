@@ -1,8 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Patient, MedicalHistory, Doctor, Clinical, MedicalProcedure, MedProc
-from .models import Operation, Examination, Vaccination, MedicalPurpose, Analysis
+from .models import Patient,  Doctor, Analysis
 from .models import UserAccount
 
 
@@ -23,13 +22,5 @@ class UserAccountAdmin(admin.ModelAdmin):
 
 admin.site.register(Patient)
 admin.site.register(Doctor)
-admin.site.register(Clinical)
 
-
-admin.site.register(MedicalHistory)
-admin.site.register(MedicalProcedure)
-admin.site.register(Examination)
-admin.site.register(Vaccination)
 admin.site.register(Analysis)
-admin.site.register(MedicalPurpose)
-admin.site.register(Operation)

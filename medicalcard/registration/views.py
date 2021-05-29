@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from medcard.models import Patient, Doctor
 from .forms import NewUser
-
+from django.contrib import messages
 
 def index(request):
     return render(request, "registration/index.html")
@@ -21,7 +21,12 @@ def create(request):
                 new_patient = Patient.objects.create(user_account=new_user,job=job, medical_insurance=medical_insurance)
             elif form.cleaned_data['user_role'] == 'doctor':
                 new_doctor = Doctor.objects.create(user_account=new_user)
-        return HttpResponseRedirect("/")
+            messages.success(request, "Add new user!")
+            return HttpResponseRedirect("/")
+        else:
+            messages.error(request, "form not valid!")
+
+        return render(request, 'registration/createPatient.html', {'form': form})
 
     else:
         form = NewUser()

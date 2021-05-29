@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.utils import timezone
 
 
 class UserAccount(AbstractUser):
@@ -20,42 +21,18 @@ class UserAccount(AbstractUser):
         return str(item.doctor.pk)
 
 
-class Clinical(models.Model):
-    name = models.CharField(max_length=20)
-
-    def __str__(self):
-        return self.name
-
-
 class Doctor(models.Model):
     user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE, null=True)
-    clinical = models.ForeignKey(Clinical, on_delete=models.DO_NOTHING, null=True)
+    description = models.JSONField()
 
     def __str__(self):
-        return f"Dr. {self.user_account} {self.clinical}"
-
-
-class MedicalProcedure(models.Model):
-    name = models.CharField(max_length=20)
-    in_clinik = models.ForeignKey(Clinical, on_delete=models.DO_NOTHING, default=1)
-
-    def __str__(self):
-        return f"{self.name} {self.in_clinik}"
-
-
-class MedicalHistory(models.Model):
-    date = models.DateField()
-    medical_procedures = models.ForeignKey(MedicalProcedure, on_delete=models.DO_NOTHING, null=True)
-
-    def __str__(self):
-        return f" {self.date}{self.medical_procedures} "
+        return f"Dr. {self.user_account}"
 
 
 class Patient(models.Model):
     user_account = models.OneToOneField(UserAccount, on_delete=models.CASCADE, null=True)
     job = models.CharField(max_length=20)
     medical_insurance = models.BooleanField()
-    my_doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         try:
@@ -67,61 +44,30 @@ class Patient(models.Model):
             return f"{first_name} {last_name}"
 
 
-class Record(models.Model):
-    date = models.DateField()
+class Visit(models.Model):
+    date_time = models.DateTimeField()
+    doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
+    result = models.JSONField()
+
+
+class Analysis(models.Model):
+    patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
+    date = models.DateField(default=timezone.now)
+    result = models.JSONField()
+
+
+class Diagnosis(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.JSONField()
 
     def __str__(self):
-        return f"{self.date} {self.patient}"
+        return self.name
 
 
-class ListManipulation(models.Model):
-    name = models.CharField(max_length=30)
-    component_list = models.JSONField(default=dict)
-
-
-class Manipulation(models.Model):
-    name = models.ForeignKey(ListManipulation, on_delete=models.DO_NOTHING)
-    description = models.JSONField(default=dict)
-    initiator_doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
-    executor_clinical = models.ForeignKey(Clinical, on_delete=models.DO_NOTHING, null=True, blank=True)
-    record = models.ForeignKey(Record, on_delete=models.DO_NOTHING)
-
-
-class MedProc(models.Model):
-    date = models.DateField()
+class Disease(models.Model):
+    start_data = models.DateField(default=timezone.now)
+    end_data = models.DateField()
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
-    clinical = models.ForeignKey(Clinical, on_delete=models.DO_NOTHING, null=True)
-
-    def __str__(self):
-        return f" {self.date}{self.patient} "
-
-    class Meta:
-        abstract = True
-
-
-class Examination(MedProc):
-    time = models.TimeField(auto_now=True)
-    visit_purpose = models.CharField(max_length=256, null=True)
-    doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
-    patient_status = models.CharField(max_length=256, null=True)
-
-
-class Vaccination(MedProc):
-    vaccine = models.CharField(max_length=256, null=True)
-    info = models.CharField(max_length=256, null=True)
-
-
-class Analysis(MedProc):
-    name_analysis = models.CharField(max_length=256, null=True)
-    result_analysis = models.CharField(max_length=256, null=True)
-
-
-class MedicalPurpose(MedProc):
-    direction = models.CharField(max_length=256, null=True)
-
-
-class Operation(MedProc):
-    name = models.CharField(max_length=256, null=True)
-    doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
-    info = models.CharField(max_length=256, null=True)
+    diagnosis = models.ForeignKey(Diagnosis, on_delete=models.DO_NOTHING, null=True)
+    description = models.JSONField()
