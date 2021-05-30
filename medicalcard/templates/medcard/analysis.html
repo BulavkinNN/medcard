@@ -14,9 +14,4 @@
 
 {%  endfor %}
 
-D(models.Model):
-    start_data = models.DateField(default=timezone.now)
-    end_data = models.DateField()
-    patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
-    diagnosis = models.ForeignKey(Diagnosis, on_delete=models.DO_NOTHING, null=True)
-    description = models.JSONField(default=dict)
+

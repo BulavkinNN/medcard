@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.utils import timezone as tz
+from django.views.generic import DetailView, ListView
 
 from authentication.permissions import is_patient, is_doctor
 from django.shortcuts import redirect, render
-from .models import UserAccount, Analysis
+from .models import UserAccount, Analysis, Visit, Disease
 
 from medcard.models import Patient
 from .tools.tools import get_random_analysis
@@ -88,3 +89,53 @@ def analysis(request):
     else:
         context['analysis'] = analysis
     return render(request, 'medcard/analysis.html', context=context)
+
+
+class AnalysisDetailView(DetailView):
+    model = Analysis
+    template_name = 'medcard/analysis.html'
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super(AnalysisDetailView, self).get_queryset()
+        patient_list = []
+        try:
+            patient_list.append(self.request.user.patient)
+        except AttributeError:
+            pass
+            # user don`t patient
+        try:
+            visit_all = Visit.objects.filter(doctor=self.request.user.doctor).distinct()
+            patient_doctor_list = [visit.patient for visit in visit_all]
+            patient_list += patient_doctor_list
+        except (Visit.DoesNotExist, AttributeError):
+            pass
+            # user dont doctor
+
+        return queryset.filter(patient__in=patient_list)
+
+
+class DiseaseDetailView(DetailView):
+    model = Disease
+    template_name = 'medcard/disease.html'
+
+    def get_queryset(self, *args, **kwargs):
+        queryset = super(DiseaseDetailView, self).get_queryset()
+        patient_list = []
+        try:
+            patient_list.append(self.request.user.patient)
+        except AttributeError:
+            pass
+            # user don`t patient
+        try:
+            visit_all = Visit.objects.filter(doctor=self.request.user.doctor).distinct()
+            patient_doctor_list = [visit.patient for visit in visit_all]
+            patient_list += patient_doctor_list
+        except (Visit.DoesNotExist, AttributeError):
+            pass
+            # user dont doctor
+
+        return queryset.filter(patient__in=patient_list)
+
+class Visit(ListView):
+    pass
+    #add list

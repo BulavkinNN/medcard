@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Patient,  Doctor, Analysis
+from .models import Patient, Doctor, Analysis, Diagnosis, Disease, Visit
 from .models import UserAccount
 
 
@@ -22,5 +22,8 @@ class UserAccountAdmin(admin.ModelAdmin):
 
 admin.site.register(Patient)
 admin.site.register(Doctor)
-
+admin.site.register(Disease)
 admin.site.register(Analysis)
+admin.site.register(Diagnosis)
+
+admin.site.register(Visit)
