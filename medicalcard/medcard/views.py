@@ -109,7 +109,7 @@ class AnalysisDetailView(DetailView):
             visit_all = Visit.objects.filter(doctor=self.request.user.doctor).distinct()
             patient_doctor_list = [visit.patient for visit in visit_all]
             patient_list += patient_doctor_list
-        except (Visit.DoesNotExist, AttributeError):
+        except AttributeError:
             pass
             # user dont doctor
 
@@ -132,12 +132,13 @@ class DiseaseDetailView(DetailView):
             visit_all = Visit.objects.filter(doctor=self.request.user.doctor).distinct()
             patient_doctor_list = [visit.patient for visit in visit_all]
             patient_list += patient_doctor_list
-        except (Visit.DoesNotExist, AttributeError):
+        except  AttributeError:
             pass
             # user dont doctor
 
         return queryset.filter(patient__in=patient_list)
 
+
 class Visit(ListView):
     pass
-    #add list
+    # add list

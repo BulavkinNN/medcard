@@ -56,6 +56,8 @@ class Analysis(models.Model):
     date = models.DateField(default=timezone.now)
     result = models.JSONField(default=dict)
 
+    def __str__(self):
+        return f"( {self.patient} : {self.date} )"
 
 class Diagnosis(models.Model):
     name = models.CharField(max_length=50)
@@ -66,8 +68,8 @@ class Diagnosis(models.Model):
 
 
 class Disease(models.Model):
-    start_data = models.DateField(default=timezone.now)
-    end_data = models.DateField(blank=True, null=True)
+    start_date = models.DateField(default=timezone.now)
+    end_date = models.DateField(blank=True, null=True)
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
     diagnosis = models.ForeignKey(Diagnosis, on_delete=models.DO_NOTHING, null=True)
     description = models.JSONField(default=dict)

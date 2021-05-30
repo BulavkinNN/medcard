@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+
 {% block title %}Стартовая страница пациента MedCard{% endblock title %}
 {% block content %}
+
  {{ today }}<br>
  Patient: {{ patient.user_account.first_name}} {{ patient.user_account.patronymick}} {{ patient.user_account.last_name}}<br>
 
@@ -8,13 +10,105 @@
     {% if disease %}
         <ul>
             {% for item in disease %}
-                <li>Диагноз:{{ item.diagnosis }}</li>
+                <li class="can_be_detailed" value_link="{% url 'medcard:disease_detail' pk=item.id%}">Диагноз:{{ item.diagnosis }}</li>
             {%  endfor %}
         </ul>
     {% else %}
-        я абсолютно здоров :)
+        я абсолютно здоров(а) :)
     {% endif %}
     <br>
-    Текущий статус
+      История анализов:
+    {% if analysis %}
+        <ul>
+            {% for item in analysis %}
+                <li class="can_be_detailed" value_link="{% url 'medcard:analysis_detail' pk=item.id%}">Дата:{{ item.date}} - {{ item.name }}</li>
+            {%  endfor %}
+        </ul>
+    {% else %}
+        я абсолютно здоров(а) :)
+    {% endif %}
     <br>
+    <br>
+
+
+    <div class="popup-fade">
+
+	<div class="popup" >
+        <a class="popup-close" href="#">Закрыть</a>
+            <div  id="popup_detail">
+            </div>
+	</div>
+</div>
+    <style>
+    .popup {
+	position: fixed;
+	top: 20%;
+	left: 50%;
+	padding: 20px;
+	width: 360px;
+	margin-left: -200px;
+	background: #fff;
+	border: 1px solid orange;
+	border-radius: 4px;
+	z-index: 99999;
+	opacity: 1;
+}
+.popup-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+    </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script>
+$(document).ready(function($) {
+	// Клик по ссылке "Закрыть".
+	$('.popup-close').click(function() {
+		$(this).parents('.popup-fade').fadeOut();
+		return false;
+	});
+
+	// Закрытие по клавише Esc.
+	$(document).keydown(function(e) {
+		if (e.keyCode === 27) {
+			e.stopPropagation();
+			$('.popup-fade').fadeOut();
+		}
+	});
+
+	// Клик по фону, но не по окну.
+	$('.popup-fade').click(function(e) {
+		if ($(e.target).closest('.popup').length == 0) {
+			$(this).fadeOut();
+		}
+	});
+});
+{#$('.popup-fade').fadeIn();#}
+{#		return false;#}
+$('.can_be_detailed').click(function (){
+    value =this.getAttribute("value_link");
+    ajax_detail_popup(value);
+})
+    const popup_detail =  document.querySelector("#popup_detail");
+       function ajax_detail_popup(select_value){
+                let xhr = new XMLHttpRequest();
+                url = select_value;
+                xhr.open('GET', url, true);
+                xhr.send();
+            xhr.onreadystatechange = function() {
+                  if (this.readyState != 4)
+                  if (this.status != 200) {
+                      return;
+                        }
+
+                	$('.popup-fade').fadeIn();
+
+                popup_detail.innerHTML = this.response;
+
+            }
+       }
+$('.popup-fade').fadeOut();
+
+</script>
 {% endblock content %}
