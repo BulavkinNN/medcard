@@ -1,0 +1,22 @@
+<h1>{{ analysis.result.name }}</h1>
+<p>Link id:{{ analysis.id }} </p>
+<p>Patient:{{ analysis.patient }}</p>
+<p>Laboratory: {{ analysis.result.laboratory }}</p>
+<p>Date: {{ analysis.date }}</p>
+
+{%   for key, value in analysis.result.items  %}
+        <ul>
+        {% if key  != "name" and key != "laboratory" %}
+       <li>{{ key }} : {{ value }}</li>
+        {%  endif %}
+        </ul>
+
+
+{%  endfor %}
+
+D(models.Model):
+    start_data = models.DateField(default=timezone.now)
+    end_data = models.DateField()
+    patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
+    diagnosis = models.ForeignKey(Diagnosis, on_delete=models.DO_NOTHING, null=True)
+    description = models.JSONField(default=dict)

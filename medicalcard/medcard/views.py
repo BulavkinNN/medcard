@@ -4,9 +4,11 @@ from django.utils import timezone as tz
 
 from authentication.permissions import is_patient, is_doctor
 from django.shortcuts import redirect, render
-from .models import UserAccount
+from .models import UserAccount, Analysis
 
 from medcard.models import Patient
+from .tools.tools import get_random_analysis
+from django.contrib import messages
 
 
 def index(request, message=None):
@@ -57,3 +59,32 @@ def doctor(request):
     # TODO: Add clinical id to dict
 
     return render(request, "medcard/doctor.html", {'user_info': user_info})
+
+
+@login_required
+def make_analysis(request):
+    analysis = ""
+    result = get_random_analysis(name=name, laboratory=laboratory)
+    try:
+        patient = request.GET.get('patient_id')
+    except ValueError:
+        messages.error("Need to input patient!")
+
+    try:
+        analysis = Analysis.objects.create(patient == patient, result=result)
+    except Analysis.DoesNotExist:
+        messages.error("")
+    context = {}
+    context['analysis'] = analysis
+    return render(request, '', context=context)
+
+
+def analysis(request):
+    context = {}
+    try:
+        analysis = Analysis.objects.get(id=1)
+    except Analysis.DoesNotExist:
+        pass
+    else:
+        context['analysis'] = analysis
+    return render(request, 'medcard/analysis.html', context=context)
