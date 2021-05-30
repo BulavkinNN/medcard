@@ -11,6 +11,8 @@ from medcard.models import Patient
 from .tools.tools import get_random_analysis
 from django.contrib import messages
 
+from .forms import EditDoctor
+
 
 def index(request, message=None):
     context = {'message': message}
@@ -56,12 +58,27 @@ def patient(request):
 @login_required
 def doctor(request):
     user_id = request.user.id
-
     user_info = UserAccount.objects.filter(id=user_id)
-    user = {}
-    # TODO: Add clinical id to dict
 
-    return render(request, "medcard/doctor.html", {'user_info': user_info})
+    return render(request, 'medcard/doctor.html', {'user_info': user_info})
+
+
+def doctor_edit(request):
+    user_id = request.user.id
+    user = UserAccount.objects.get(id=user_id)
+    form = EditDoctor(initial={'patronymick': user.patronymick, 'city': user.city})
+    edited = False
+
+    if request.method == "POST":
+        user.city = request.POST.get('city')
+        user.patronymick = request.POST.get('patronymick')
+
+        user.save()
+        edited = True
+
+        form = EditDoctor(initial={'patronymick': user.patronymick, 'city': user.city})
+
+    return render(request, 'medcard/doctor-edit.html', {'form': form, 'edited': edited})
 
 
 @login_required

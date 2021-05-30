@@ -32,6 +32,15 @@ a {
     margin-left: 10px;
 }
 
+form label {
+    font-weight: 600;
+}
+
+.btr-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
 footer {
     background-color: #1f3361;
     margin-top: 50px;
