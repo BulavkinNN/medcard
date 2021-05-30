@@ -45,6 +45,8 @@ def patient(request):
             today = tz.localtime(tz.now()).date()
             context['today'] = today
             context['patient'] = patient
+            context['analysis'] = Analysis.objects.filter(patient=patient).order_by('-date')
+            context['disease'] = Disease.objects.filter(patient=patient).order_by('-start_date')
 
             return render(request, 'medcard/patient_main.html', context=context)
 
