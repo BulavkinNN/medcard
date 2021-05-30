@@ -1,0 +1,17 @@
+<h1>{{ analysis.result.name }}</h1>
+<p>Link id:{{ analysis.id }} </p>
+<p>Patient:{{ analysis.patient }}</p>
+<p>Laboratory: {{ analysis.result.laboratory }}</p>
+<p>Date: {{ analysis.date }}</p>
+
+{%   for key, value in analysis.result.items  %}
+        <ul>
+        {% if key  != "name" and key != "laboratory" %}
+       <li>{{ key }} : {{ value }}</li>
+        {%  endif %}
+        </ul>
+
+
+{%  endfor %}
+
+

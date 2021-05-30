@@ -1,0 +1,13 @@
+<h1>{{ disease.diagnosis }}</h1>
+<p>Link id:{{ disease.id }} </p>
+<p>Patient:{{ disease.patient }}</p>
+<p>Laboratory: {{ analysis.result.laboratory }}</p>
+<p>Start at: {{ disease.start_date }}</p>
+<p>End at: {{ disease.end_date }}</p>
+{%   for key, value in disease.description.items  %}
+        <ul>
+       <li>{{ key }} : {{ value }}</li>
+        </ul>
+{%  endfor %}
+
+
