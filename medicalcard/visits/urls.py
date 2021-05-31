@@ -3,5 +3,7 @@ from . import views
 
 app_name = 'visits'
 urlpatterns = [
-    path('', views.my_visits, name='my_visits'),
+    path('my-visits/', views.my_visits, name='my_visits'),
+    path('add/', views.add_visit, name='add_visit'),
+    path('visit/<int:pk>', views.get_visit, name='visit')
 ]

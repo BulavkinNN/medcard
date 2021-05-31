@@ -24,6 +24,6 @@ urlpatterns = [
     path('mail/', views.send_mail_to),
     path('authentication/', include('authentication.urls')),
     # path('my-pacients/', include('pacients.urls')),
-    path('my-visits', include('visits.urls')),
+    path('visits/', include('visits.urls')),
     path('', include('medcard.urls'))
 ]

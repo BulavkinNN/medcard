@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block title %}Мои визиты{% endblock title %}
+{% block content %}
+<div class="container">
+    <h2>Create new visit</h2>
+    {% if not error %}
+        <div class="alert alert-danger" role="alert">
+          Visit is not created
+        </div>
+    {% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="btr-wrapper">
+            <input type="submit" value="Create" class="btn btn-primary">
+            <a href="/my-visits" class="btn btn-danger">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

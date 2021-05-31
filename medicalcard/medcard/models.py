@@ -48,7 +48,7 @@ class Visit(models.Model):
     date_time = models.DateTimeField()
     doctor = models.ForeignKey(Doctor, on_delete=models.DO_NOTHING, null=True)
     patient = models.ForeignKey(Patient, on_delete=models.DO_NOTHING, null=True)
-    result = models.JSONField(default=dict)
+    result = models.JSONField(default=dict, null=True)
 
 
 class Analysis(models.Model):
