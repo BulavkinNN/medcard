@@ -84,8 +84,6 @@ $(document).ready(function($) {
 		}
 	});
 });
-{#$('.popup-fade').fadeIn();#}
-{#		return false;#}
 $('.can_be_detailed').click(function (){
     value =this.getAttribute("value_link");
     ajax_detail_popup(value);
@@ -97,15 +95,17 @@ $('.can_be_detailed').click(function (){
                 xhr.open('GET', url, true);
                 xhr.send();
             xhr.onreadystatechange = function() {
-                  if (this.readyState != 4)
-                  if (this.status != 200) {
+                  if (this.readyState != 4){
                       return;
+                  }
+                  if (this.status != 200) {
+                      $('.popup-fade').fadeIn();
+                popup_detail.innerHTML = "<p>Детали не доступны</p>";
                         }
-
-                	$('.popup-fade').fadeIn();
-
+                    else{
+                    $('.popup-fade').fadeIn();
                 popup_detail.innerHTML = this.response;
-
+                  }
             }
        }
 $('.popup-fade').fadeOut();

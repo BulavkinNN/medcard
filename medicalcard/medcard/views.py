@@ -4,7 +4,7 @@ from django.utils import timezone as tz
 from django.views.generic import DetailView, ListView
 
 from authentication.permissions import is_patient, is_doctor
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from .models import UserAccount, Analysis, Visit, Disease
 
 from medcard.models import Patient
@@ -36,23 +36,19 @@ def patient(request):
   I am pacient! But there is error
     '''
     context = {}
-    if is_patient(request):
-        patient_id = request.user.patient.id
+    if not is_patient(request):
+        return HttpResponse(response)
 
-        try:
-            patient = Patient.objects.get(id=patient_id)
-        except Patient.DoesNotExist:
-            print("Error")
-        else:
-            today = tz.localtime(tz.now()).date()
-            context['today'] = today
-            context['patient'] = patient
-            context['analysis'] = Analysis.objects.filter(patient=patient).order_by('-date')
-            context['disease'] = Disease.objects.filter(patient=patient).order_by('-start_date')
+    patient_id = request.user.patient.id
+    patient = get_object_or_404(Patient, id=patient_id)
 
-            return render(request, 'medcard/patient_main.html', context=context)
+    today = tz.localtime(tz.now()).date()
+    context['today'] = today
+    context['patient'] = patient
+    context['analysis'] = Analysis.objects.filter(patient=patient).order_by('-date')
+    context['disease'] = Disease.objects.filter(patient=patient).order_by('-start_date')
 
-    return HttpResponse(response)
+    return render(request, 'medcard/patient_main.html', context=context)
 
 
 @login_required
