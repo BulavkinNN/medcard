@@ -4,7 +4,7 @@ from django.utils import timezone
 from authentication.permissions import is_doctor
 from django.shortcuts import redirect, render, get_object_or_404
 from medcard.models import UserAccount, Visit, Patient, Doctor
-from .forms import AddVisit
+from .forms import AddVisit, EditVisit
 
 
 def my_visits(request):
@@ -31,12 +31,38 @@ def add_visit(request):
             visit = Visit(date_time=request.POST.get('date'), doctor=Doctor.objects.get(user_account=request.user.id), patient=Patient.objects.get(pk=request.POST.get('patient')))
             visit.save()
 
-            return redirect('/visits/visit/' + str(visit.id))
+            return redirect('/visits/visit/edit/' + str(visit.id))
 
-    else:
-        form = AddVisit()
+    form = AddVisit()
 
     return render(request, 'visits/add_visit.html', {'form': form, 'error': error})
+
+
+def edit_visit(request, pk):
+    if not is_doctor(request):
+        return redirect('/')
+
+    updated = False
+    visit = Visit.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = EditVisit(request.POST)
+        if form.is_valid():
+            result = dict()
+
+            result['to_doctors'] = request.POST.get('to_doctors')
+            result['to_analysis'] = request.POST.get('to_analysis')
+            result['meds'] = request.POST.get('meds')
+
+            visit.result = result
+            visit.save()
+
+            updated = True
+
+    form = EditVisit(initial={'to_doctors': visit.result['to_doctors'], 'to_analysis': visit.result['to_analysis'], 'meds': visit.result['meds']})
+
+    return render(request, 'visits/edit.html', {'form': form, 'updated': updated, 'visit_id': pk})
+
+
 
 
 def get_visit(request, pk):
