@@ -55,8 +55,6 @@ def edit_visit(request, pk):
             result['to_analysis'] = request.POST.get('to_analysis')
             result['meds'] = request.POST.get('meds')
 
-            print(request.POST.get('to_doctors'))
-
             visit.result = result
             visit.save()
 
@@ -70,9 +68,13 @@ def edit_visit(request, pk):
     return render(request, 'visits/edit.html', {'form': form, 'updated': updated, 'visit_id': pk})
 
 
-
-
 def get_visit(request, pk):
-    visit = get_object_or_404(Visit, pk=pk)
+    visit = get_object_or_404(Visit, doctor=request.user.id, pk=pk)
+    result = dict()
 
-    return render(request, 'visits/single.html', {'visit': visit})
+    if visit.result:
+        result['to_doctors'] = visit.result['to_doctors']
+        result['to_analysis'] = visit.result['to_analysis']
+        result['meds'] = visit.result['meds']
+
+    return render(request, 'visits/single.html', {'visit': visit, 'result': result})

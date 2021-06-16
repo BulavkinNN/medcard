@@ -2,5 +2,33 @@
 {% load custom_tags %}
 {% block title %}Мои визиты{% endblock title %}
 {% block content %}
+<div class="container">
+    {% if visit %}
+        <h2>Visit #{{visit.id}}</h2>
+        <p><b>The name of the patient:</b> {{visit.patient.user_account.first_name}} {{visit.patient.user_account.last_name}}</p>
+        <p><b>Gender:</b> {{visit.patient.user_account.sex}}</p>
+        <p><b>Date of visit:</b> {{visit.date_time}}</p>
 
+        {% if result %}
+            <br/>
+            <h5><b>Results:</b></h5>
+            {% if result|get_item:'meds' %}
+                <p><b>Drug prescription:</b> {{result|get_item:'meds'}}</p>
+            {% endif %}
+
+            {% if result|get_item:'to_analysis' %}
+                <p><b>Referral for tests:</b> {{result|get_item:'to_analysis'}}</p>
+            {% endif %}
+
+            {% if result|get_item:'to_doctors' %}
+                <p><b>Medical referral:</b> {{result|get_item:'to_doctors'}}</p>
+            {% endif %}
+        {% endif %}
+
+        <div class="btn-wrapper">
+            <a href="/visits/visit/edit/{{visit.id}}" class="btn btn-primary">Edit</a>
+            <a href="/visits/my-visits" class="btn btn-danger">Cancel</a>
+        </div>
+    {% endif %}
+</div>
 {% endblock content %}

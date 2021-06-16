@@ -4,10 +4,15 @@
 {% block content %}
 <div class="container">
     <h2 style="text-align: center;">Edit visit №{{ visit_id }}</h2>
+    {% if updated %}
+        <div class="alert alert-success" role="alert">
+          Visit is edited
+        </div>
+    {% endif %}
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <div class="btr-wrapper">
+        <div class="btn-wrapper">
             <input type="submit" value="Save" class="btn btn-primary">
             <a href="/visits/my-visits" class="btn btn-danger">Cancel</a>
         </div>

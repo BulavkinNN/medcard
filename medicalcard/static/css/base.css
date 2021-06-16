@@ -36,9 +36,18 @@ form label {
     font-weight: 600;
 }
 
-.btr-wrapper {
+.btn-wrapper {
     display: flex;
     justify-content: space-between;
+    margin-top: 50px;
+}
+
+.btn-wrapper.one-button-right {
+    justify-content: flex-end;
+}
+
+.btn-wrapper.one-button-left {
+    justify-content: flex-start;
 }
 
 footer {
