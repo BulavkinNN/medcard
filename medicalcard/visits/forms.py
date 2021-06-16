@@ -9,6 +9,6 @@ class AddVisit(forms.Form):
 
 
 class EditVisit(forms.Form):
-    to_doctors = forms.CharField(label='Medical referral', widget=forms.Textarea(attrs={'class': 'form-control'}))
-    to_analysis = forms.CharField(label='Referral for tests', widget=forms.Textarea(attrs={'class': 'form-control'}))
-    meds = forms.CharField(label='Drug prescription', widget=forms.Textarea(attrs={'class': 'form-control'}))
+    to_doctors = forms.CharField(label='Medical referral', widget=forms.Textarea(attrs={'class': 'form-control'}), required=False)
+    to_analysis = forms.CharField(label='Referral for tests', widget=forms.Textarea(attrs={'class': 'form-control'}), required=False)
+    meds = forms.CharField(label='Drug prescription', widget=forms.Textarea(attrs={'class': 'form-control'}), required=False)

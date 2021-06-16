@@ -44,6 +44,8 @@ def edit_visit(request, pk):
 
     updated = False
     visit = Visit.objects.get(pk=pk)
+    form = EditVisit()
+
     if request.method == 'POST':
         form = EditVisit(request.POST)
         if form.is_valid():
@@ -53,12 +55,17 @@ def edit_visit(request, pk):
             result['to_analysis'] = request.POST.get('to_analysis')
             result['meds'] = request.POST.get('meds')
 
+            print(request.POST.get('to_doctors'))
+
             visit.result = result
             visit.save()
 
             updated = True
 
-    form = EditVisit(initial={'to_doctors': visit.result['to_doctors'], 'to_analysis': visit.result['to_analysis'], 'meds': visit.result['meds']})
+    if visit.result:
+        form = EditVisit(
+            initial={'to_doctors': visit.result['to_doctors'], 'to_analysis': visit.result['to_analysis'],
+                     'meds': visit.result['meds']})
 
     return render(request, 'visits/edit.html', {'form': form, 'updated': updated, 'visit_id': pk})
 
