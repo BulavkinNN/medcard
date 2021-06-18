@@ -3,6 +3,9 @@
 {% block title %}Мои визиты{% endblock title %}
 {% block content %}
 <h2 style="text-align:center">My visits</h2>
+<div class="btn-wrapper one-button-right">
+    <a href="/visits/add" class="btn btn-primary" style="margin-right: 30px;">Add new</a>
+</div>
 {% if visits %}
     <table class="table">
         <thead>
@@ -32,10 +35,20 @@
             {% endfor %}
         </tbody>
     </table>
+    <div class="pagination">
+     <span class="step-links">
+      {% if visits.has_previous %}
+          <a class="btn btn-secondary" href="?page={{ visits.previous_page_number }}">Previous</a>
+      {% endif %}
+        <span class="current">
+            Page {{ visits.number }} of {{ visits.paginator.num_pages }}.
+        </span>
+      {% if visits.has_next %}
+            <a class="btn btn-secondary" href="?page={{ visits.next_page_number }}">Next</a>
+      {% endif %}
+      </span>
+    </div>
 {% else %}
         <p>You don't have visits yet.</p>
 {% endif %}
-<div class="btn-wrapper one-button-left">
-    <a href="/visits/add" class="btn btn-primary" style="margin-left: 30px;">Add new</a>
-</div>
 {% endblock content %}

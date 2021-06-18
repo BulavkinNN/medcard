@@ -39,7 +39,7 @@ form label {
 .btn-wrapper {
     display: flex;
     justify-content: space-between;
-    margin-top: 50px;
+    margin: 25px 0;
 }
 
 .btn-wrapper.one-button-right {
@@ -48,6 +48,10 @@ form label {
 
 .btn-wrapper.one-button-left {
     justify-content: flex-start;
+}
+
+.pagination {
+    justify-content: center;
 }
 
 footer {

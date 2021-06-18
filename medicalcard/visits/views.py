@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.utils import timezone
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from authentication.permissions import is_doctor
 from django.shortcuts import redirect, render, get_object_or_404
 from medcard.models import UserAccount, Visit, Patient, Doctor
@@ -15,8 +16,17 @@ def my_visits(request):
     user_id = request.user.id
 
     visits_obj = Visit.objects.filter(doctor=user_id).order_by('-date_time')
+    paginator = Paginator(visits_obj, 5)
+    page = request.GET.get('page')
 
-    return render(request, 'visits/my_visits.html', {'visits': visits_obj})
+    try:
+        visits = paginator.page(page)
+    except PageNotAnInteger:
+        visits = paginator.page(1)
+    except EmptyPage:
+        visits = paginator.page(paginator.num_pages)
+
+    return render(request, 'visits/my_visits.html', {'page': page, 'visits': visits})
 
 
 def add_visit(request):
